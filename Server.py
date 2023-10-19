@@ -20,9 +20,6 @@ class weather(Resource):
         # Send an HTTP GET request to the OpenWeatherMap API and put it in json format ie. python dictionary
         response = (get_response(API_URL)).json()
 
-        # Parse the JSON response into a Python dictionary
-        #data = response.json()
-
         weather_data = {'City': response['name'],
                         'Temperature': response['main']['temp'],
                         'Description': response['weather'][0][
