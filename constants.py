@@ -1,7 +1,6 @@
 import requests
 
-Base = 'http://127.0.0.1:5000'
-
+# Used to make endpoint for external weather server
 def get_weather_api_url(city):
     # Define your OpenWeatherMap API key
     api_key = '063778e183000493832b73cd4be50766'
@@ -10,7 +9,14 @@ def get_weather_api_url(city):
     api_url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
     return api_url
 
+# Used to make endpoint for local server
+def get_local_server_api_url(city):
+    Base = 'http://127.0.0.1:5000'
+    Local_Server_URL = f"{Base}/weather/{city}"
+    return Local_Server_URL
 
+
+# Used to get response from local or external servers
 def get_response(url):
     response = requests.get(url)
     return response

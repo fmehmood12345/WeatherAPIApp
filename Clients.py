@@ -1,11 +1,12 @@
 # Import the 'requests' module for making HTTP requests
 import requests
-from constants import get_response, Base
+from constants import get_response, get_local_server_api_url
 
 # Prompt the user to enter a city name
 city = input("Please enter your city: ")
 
-Local_Server_URL = f"{Base}/weather/{city}"
+# Calling the function in constants which gets the end point for the local server
+Local_Server_URL = get_local_server_api_url(city)
 
 # Send an HTTP GET request to the Flask server, specifying the city as part of the URL
 response = get_response(Local_Server_URL)
