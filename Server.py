@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_restful import Api, Resource
 import requests
-from constants import api_key, get_response, get_weather_api_url
+from constants import get_response, get_weather_api_url
 
 # Create a Flask application
 app = Flask(__name__)

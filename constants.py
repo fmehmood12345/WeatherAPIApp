@@ -1,18 +1,19 @@
 import requests
-# Define your OpenWeatherMap API key
-api_key = '063778e183000493832b73cd4be50766'
+
 Base = 'http://127.0.0.1:5000'
 
 def get_weather_api_url(city):
+    # Define your OpenWeatherMap API key
+    api_key = '063778e183000493832b73cd4be50766'
+
     # Create the API URL to fetch weather data for the specified city
     api_url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
     return api_url
 
+
 def get_response(url):
     response = requests.get(url)
     return response
-
-
 
 
 # Define the base URL for your Flask server
@@ -27,9 +28,8 @@ machine itself.
 :5000 is the port number on which the Flask server is running. Flask, by default, runs on port 5000 when you use 
 app.run() without specifying a different port. This port is where the Flask server listens for incoming requests. """
 
-
 # UNDERSTANDING JSON DATA
-#Code:
+# Code:
 """
 {  'City': data['name'], 
     'Temperature': data['main']['temp'],
@@ -37,7 +37,7 @@ app.run() without specifying a different port. This port is where the Flask serv
 }
 """
 
-#Data:
+# Data:
 """
 { 
  'coord': {'lon': -74.006, 'lat': 40.7143}, 
