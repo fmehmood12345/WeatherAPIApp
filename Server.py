@@ -2,6 +2,7 @@
 from flask import Flask
 from flask_restful import Api, Resource
 import requests
+from constants import api_key, get_response
 
 # Create a Flask application
 app = Flask(__name__)
@@ -12,14 +13,11 @@ api = Api(app)
 class weather(Resource):
     # Define a method for handling HTTP GET requests
     def get(self, city):
-        # Define your OpenWeatherMap API key
-        api_key = '063778e183000493832b73cd4be50766'
-
         # Create the API URL to fetch weather data for the specified city
         api_url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
 
         # Send an HTTP GET request to the OpenWeatherMap API
-        response = requests.get(api_url)
+        response = get_response(api_url)
 
         # Parse the JSON response into a Python dictionary
         data = response.json()
