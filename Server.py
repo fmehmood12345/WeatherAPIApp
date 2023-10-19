@@ -17,15 +17,15 @@ class weather(Resource):
         #Getting the api url from constants file.
         API_URL = get_weather_api_url(city)
 
-        # Send an HTTP GET request to the OpenWeatherMap API
-        response = get_response(API_URL)
+        # Send an HTTP GET request to the OpenWeatherMap API and put it in json format ie. python dictionary
+        response = (get_response(API_URL)).json()
 
         # Parse the JSON response into a Python dictionary
-        data = response.json()
+        #data = response.json()
 
-        weather_data = {'City': data['name'],
-                        'Temperature': data['main']['temp'],
-                        'Description': data['weather'][0][
+        weather_data = {'City': response['name'],
+                        'Temperature': response['main']['temp'],
+                        'Description': response['weather'][0][
                             'description']}  # [0] because there is only 1 index for weather
         return weather_data
 
