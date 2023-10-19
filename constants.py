@@ -3,6 +3,11 @@ import requests
 api_key = '063778e183000493832b73cd4be50766'
 Base = 'http://127.0.0.1:5000'
 
+def get_weather_api_url(city):
+    # Create the API URL to fetch weather data for the specified city
+    api_url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
+    return api_url
+
 def get_response(url):
     response = requests.get(url)
     return response
