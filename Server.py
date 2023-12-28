@@ -1,35 +1,41 @@
 # Import necessary modules and libraries
 from flask import Flask
-from flask_restful import Api, Resource
+from fastapi import FastAPI, Depends, HTTPException, Query
 import requests
-from constants import get_response, get_weather_api_url
+from Utilities import get_response, get_weather_api_url
+from pydantic import BaseModel
+
 
 # Create a Flask application
-app = Flask(__name__)
-api = Api(app)
+app = FastAPI()
 
+def determine_umbrella_need(weather_description: str) -> str:
+    if ("Clouds" or "clouds" or "Rain" or "rain") in weather_description:
+        return "You should take an umbrella :("
+    else:
+        return "You don't need an umbrella :)"
 
-# Create a Resource class for handling the weather data
-class weather(Resource):
-    # Define a method for handling HTTP GET requests
-    def get(self, city):
+# Define a method for handling HTTP GET requests
+@app.get("/weather/{city}")
+def get_weather(city: str):
+    # Getting the API URL from the utility function
+    api_url = get_weather_api_url(city)
 
-        #Getting the api url from constants file.
-        API_URL = get_weather_api_url(city)
+    # Send an HTTP GET request to the OpenWeatherMap API and put it in JSON format (Python dictionary)
+    response = get_response(api_url).json()
 
-        # Send an HTTP GET request to the OpenWeatherMap API and put it in json format ie. python dictionary
-        response = (get_response(API_URL)).json()
+    # Check if "clouds" or "rain" is in the description
+    weather_description = response.get('Description', '').lower()
 
-        weather_data = {'City': response['name'],
-                        'Temperature': response['main']['temp'],
-                        'Description': response['weather'][0][
-                            'description']}  # [0] because there is only 1 index for weather
-        return weather_data
+    # Determine umbrella need and get the message
+    message = determine_umbrella_need(weather_description)
 
+    # Return a JSON response with the message
+    return {"message": message}
 
-# Add the weather Resource to the API and define the route for accessing it
-api.add_resource(weather, '/weather/<string:city>')
 
 # Run the Flask application in debug mode if this script is executed
 if __name__ == '__main__':
-    app.run(debug=True)
+    import uvicorn
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)

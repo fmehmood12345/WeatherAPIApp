@@ -11,7 +11,7 @@ def get_weather_api_url(city):
 
 # Used to make endpoint for local server
 def get_local_server_api_url(city):
-    Base = 'http://127.0.0.1:5000'
+    Base = 'http://127.0.0.1:8000'
     Local_Server_URL = f"{Base}/weather/{city}"
     return Local_Server_URL
 

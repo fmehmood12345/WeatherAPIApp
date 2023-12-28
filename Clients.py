@@ -1,21 +1,21 @@
 import requests
-from constants import get_response, get_local_server_api_url
+from Utilities import get_response, get_local_server_api_url
 
 city = input("Please enter your city: ")
 
-# Calling the function in constants.py which gets the endpoint for weather in local server, specifying the city as part
+# Calling the function in Utilities.py which gets the endpoint for weather in local server, specifying the city as part
 # of the URL
 Local_Server_URL = get_local_server_api_url(city)
 
 # Send an HTTP GET request to the Flask server, and puts it into json format
 response = (get_response(Local_Server_URL)).json()
-
-# Check if "Cloudy" or "cloudy" is in the description (case-insensitive)
-if ("Clouds" or "clouds"or "Rain"or "rain") in response['Description']:
-    print("---------------------------------")
-    print("You should take an umbrella :(")
-    print("---------------------------------")
-else:
-    print("---------------------------------")
-    print("You don't need an umbrella :)")
-    print("---------------------------------")
+#
+# # Check if "Cloudy" or "cloudy" is in the description (case-insensitive)
+# if ("Clouds" or "clouds"or "Rain"or "rain") in response['description']:
+#     print("---------------------------------")
+#     print("You should take an umbrella :(")
+#     print("---------------------------------")
+# else:
+#     print("---------------------------------")
+#     print("You don't need an umbrella :)")
+#     print("---------------------------------")
