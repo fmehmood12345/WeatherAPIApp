@@ -9,8 +9,9 @@ from pydantic import BaseModel
 # Create a Flask application
 app = FastAPI()
 
-def determine_umbrella_need(weather_description: str) -> str:
-    if ("Clouds" or "clouds" or "Rain" or "rain") in weather_description:
+def determine_umbrella_need(weather_description):
+    # # Check if "Cloudy" or "cloudy" is in the description (case-insensitive)
+    if "Clouds" in weather_description['Description'] or "clouds" in weather_description['Description'] or "Rain" in weather_description['Description'] or "rain" in weather_description['Description']:
         return "You should take an umbrella :("
     else:
         return "You don't need an umbrella :)"
@@ -24,11 +25,13 @@ def get_weather(city: str):
     # Send an HTTP GET request to the OpenWeatherMap API and put it in JSON format (Python dictionary)
     response = get_response(api_url).json()
 
-    # Check if "clouds" or "rain" is in the description
-    weather_description = response.get('Description', '').lower()
+    weather_data = {'City': response['name'],
+                    'Temperature': response['main']['temp'],
+                    'Description': response['weather'][0][
+                        'description']}  # [0] because there is only 1 index for weather
 
     # Determine umbrella need and get the message
-    message = determine_umbrella_need(weather_description)
+    message = determine_umbrella_need(weather_data)
 
     # Return a JSON response with the message
     return {"message": message}
@@ -37,5 +40,5 @@ def get_weather(city: str):
 # Run the Flask application in debug mode if this script is executed
 if __name__ == '__main__':
     import uvicorn
-
     uvicorn.run(app, host="127.0.0.1", port=8000)
+    # How to run: http://127.0.0.1:8000/docs add docs to the end

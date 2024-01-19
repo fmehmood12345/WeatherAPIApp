@@ -3,7 +3,7 @@ import requests
 # Used to make endpoint for external weather server
 def get_weather_api_url(city):
     # Define your OpenWeatherMap API key
-    api_key = '063778e183000493832b73cd4be50766'
+    api_key = 'a3a0c0279e131432079ea7847b090f30'
 
     # Create the API URL to fetch weather data for the specified city
     api_url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
