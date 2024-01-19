@@ -9,13 +9,3 @@ Local_Server_URL = get_local_server_api_url(city)
 
 # Send an HTTP GET request to the Flask server, and puts it into json format
 response = (get_response(Local_Server_URL)).json()
-#
-# # Check if "Cloudy" or "cloudy" is in the description (case-insensitive)
-# if ("Clouds" or "clouds"or "Rain"or "rain") in response['description']:
-#     print("---------------------------------")
-#     print("You should take an umbrella :(")
-#     print("---------------------------------")
-# else:
-#     print("---------------------------------")
-#     print("You don't need an umbrella :)")
-#     print("---------------------------------")

@@ -11,7 +11,9 @@ app = FastAPI()
 
 def determine_umbrella_need(weather_description):
     # # Check if "Cloudy" or "cloudy" is in the description (case-insensitive)
-    if "Clouds" in weather_description['Description'] or "clouds" in weather_description['Description'] or "Rain" in weather_description['Description'] or "rain" in weather_description['Description']:
+    if "Clouds" in weather_description['Description'] or "clouds" in weather_description['Description'] or "cloudy" in \
+            weather_description['Description'] or "Cloudy" in weather_description['Description'] or "Rain" in \
+            weather_description['Description'] or "rain" in weather_description['Description']:
         return "You should take an umbrella :("
     else:
         return "You don't need an umbrella :)"
